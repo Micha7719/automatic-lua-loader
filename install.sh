@@ -12,8 +12,9 @@ rm -r automatic-lua-loader
 
 # install new version
 git clone https://github.com/BenNoxXD/automatic-lua-loader/
-mv $HOME/ip.txt /opt/automatic-lua-loader/
-cd automatic-lua-loader
+cd $HOME
+mv ip.txt /opt/automatic-lua-loader/
+cd /opt/automatic-lua-loader/
 mkdir exploit
 wget https://raw.githubusercontent.com/shahrilnet/remote_lua_loader/refs/heads/main/payloads/umtx.lua -P exploit
 wget https://raw.githubusercontent.com/shahrilnet/remote_lua_loader/refs/heads/main/payloads/send_lua.py
@@ -32,5 +33,5 @@ WantedBy=multi-user.target
 EOF
 
 # enable the service
-sudo systemctl enable lualoader
-sudo reboot
+systemctl enable lualoader
+reboot
