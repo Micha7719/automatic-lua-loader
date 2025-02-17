@@ -26,6 +26,6 @@ It is best to connect the Raspberry Pi to one of the PS5's power ports. Now the 
 
 
 ## How it works
-The Raspberry Pi sends a Ping to port 9026 to terminate whether the game is ready. 
-When it is ready the Raspberry Pi sends the UMTX exploit followed by the elf_loader.
-Now the Raspberry Pi shuts down and you are all set up. 
+1. The Raspberry Pi sends a Ping to port 9026 to terminate whether the game is ready. 
+2. The Raspberry Pi sends the UMTX exploit followed by the elf_loader.
+3. Now the Raspberry Pi shuts down and you are all set up. 
