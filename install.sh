@@ -5,7 +5,7 @@ apt-get install -y git python3 wget
 
 # remove old version
 systemctl stop lualoader
-systemctl disable lualloader
+systemctl disable lualoader
 rm /etc/systemd/system/lualoader.service
 cd /opt
 rm -r automatic-lua-loader
