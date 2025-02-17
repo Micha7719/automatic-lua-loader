@@ -5,7 +5,7 @@ This is an installer script that is meant to be run on a Raspberry Pi. It Loads 
 ## Installation
 First, you have to set your PS5's IP like this:
 `export PS5_IP=10.0.0.2`
-After that, you can copy and paste the following command into your Raspberry Pi's terminal via ssh. 
+After that, you can copy and paste the following command into your Raspberry Pi's terminal via ssh. You can also use this command to update the UMTX & elf_loader payload.
 
 <br>
 
