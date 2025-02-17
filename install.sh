@@ -22,13 +22,15 @@ wget https://raw.githubusercontent.com/shahrilnet/remote_lua_loader/refs/heads/m
 wget https://raw.githubusercontent.com/shahrilnet/remote_lua_loader/refs/heads/main/payloads/send_lua.py
 wget https://raw.githubusercontent.com/shahrilnet/remote_lua_loader/refs/heads/main/payloads/elf_loader.lua -P exploit
 
+chmod +x run.sh
+
 # create a service for autostart
 cat > /etc/systemd/system/lualoader.service <<- "EOF"
 [Unit]
 Description=PS5 automatic lua loader
 
 [Service]
-ExecStart=/opt/automatic-lua-loader/run.sh
+ExecStart=/bin/bash /opt/automatic-lua-loader/run.sh
 
 [Install]
 WantedBy=multi-user.target
