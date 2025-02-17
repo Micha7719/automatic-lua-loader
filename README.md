@@ -1,6 +1,5 @@
 # automatic-lua-loader
-This is an installer script that is meant to be run on a Raspberry Pi. It Loads the Lua savegame exploit automatically whenever the game is ready. You can find the Lua exploit right here: [Remote Lua Loader
-](https://github.com/Leeful/leeful.github.io).
+This is an installer script that is meant to be run on a Raspberry Pi. It Loads the Lua savegame exploit automatically whenever the game is ready. You can find the Lua exploit right here: [Remote Lua Loader](https://github.com/shahrilnet/remote_lua_loader).
 
 
 ## Installation
