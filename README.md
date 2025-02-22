@@ -43,7 +43,7 @@ export PS5_IP=10.0.0.2
 ```
 
 <br>
-Make sure you have [Docker](https://docs.docker.com/engine/install/) installed. You can check it like this: `docker -v`.
+Make sure you have [Docker](https://docs.docker.com/engine/install/) installed. You can check it like this: docker -v.
 Now you can download this Dockerfile:
 <br>
 
