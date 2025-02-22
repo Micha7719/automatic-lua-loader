@@ -17,8 +17,8 @@ export PS5_IP=10.0.0.2
 ```
 
 <br>
-After that, you can copy and paste the following command into your terminal (eg. via ssh). You can also use this command to update the UMTX & elf_loader payload.
 
+After that, you can copy and paste the following command into your terminal (eg. via ssh). You can also use this command to update the UMTX & elf_loader payload.
 <br>
 
 ```sh
@@ -43,7 +43,8 @@ export PS5_IP=10.0.0.2
 ```
 
 <br>
-Make sure you have [Docker](https://docs.docker.com/engine/install/) installed. You can check it like this: docker -v.
+
+Make sure you have [Docker](https://docs.docker.com/engine/install/) installed. You can check it like this: `docker -v`.
 Now you can download this Dockerfile:
 <br>
 
@@ -53,6 +54,7 @@ wget https://raw.githubusercontent.com/BenNoxXD/automatic-lua-loader/refs/heads/
 
 <br>
 Then run the following command to create the image and deploy the container:
+
 <br>
 
 ```sh
