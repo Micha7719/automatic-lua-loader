@@ -1,11 +1,23 @@
 # automatic-lua-loader
-This is an installer script that is meant to be run on a Raspberry Pi. It Loads the Lua savegame exploit automatically whenever the game is ready. You can find the Lua exploit right here: [Remote Lua Loader](https://github.com/shahrilnet/remote_lua_loader).
+This is an installer script that Loads the PS5 UMTX Lua savegame exploit and the elf_loader automatically whenever the game is ready. You can install it natively (eg. on a Raspberry Pi) or in a Docker container. You can find the Lua exploit right here: [Remote Lua Loader](https://github.com/shahrilnet/remote_lua_loader).
 
 
-## Installation
+## How it works
+1. Your device checks if port 9026 is open to terminate whether the game is ready. 
+2. It sends the UMTX exploit followed by the elf_loader.
+3. It waits until the ELF loader/port 9021 is closed to start the process all over again. 
+
+
+## Native installation
 First, you have to set your PS5's IP like this:
-`export PS5_IP=10.0.0.2`
-After that, you can copy and paste the following command into your Raspberry Pi's terminal via ssh. You can also use this command to update the UMTX & elf_loader payload.
+<br>
+
+```sh
+export PS5_IP=10.0.0.2
+```
+
+<br>
+After that, you can copy and paste the following command into your terminal (eg. via ssh). You can also use this command to update the UMTX & elf_loader payload.
 
 <br>
 
@@ -17,14 +29,35 @@ curl -s https://raw.githubusercontent.com/BenNoxXD/automatic-lua-loader/refs/hea
 
 <br>
 
-The Raspberry Pi will reboot after the installation, and you are ready to go. 
+Your Raspberry Pi/server will reboot after the installation, and you are ready to go. 
 
+# Usage
+If you are using a Paspberry Pi it is best to connect it to one of the PS5's power ports. Now the Raspberry Pi will automatically turn on whenever your PS5 boots up. 
 
-## Usage
-It is best to connect the Raspberry Pi to one of the PS5's power ports. Now the Raspberry Pi will automatically turn on when you boot up your PS5.
+## Docker installation
+First, you have to set your PS5's IP like this:
+<br>
 
+```sh
+export PS5_IP=10.0.0.2
+```
 
-## How it works
-1. The Raspberry Pi sends a Ping to port 9026 to terminate whether the game is ready. 
-2. The Raspberry Pi sends the UMTX exploit followed by the elf_loader.
-3. Now the Raspberry Pi shuts down and you are all set up. 
+<br>
+Make sure you have [Docker](https://docs.docker.com/engine/install/) installed. You can check it like this: `docker -v`.
+Now you can download this Dockerfile:
+<br>
+
+```sh
+wget https://raw.githubusercontent.com/BenNoxXD/automatic-lua-loader/refs/heads/main/Dockerfile
+```
+
+<br>
+Then run the following command to create the image and deploy the container:
+<br>
+
+```sh
+docker build --build-arg PS5_IP=$PS5_IP -t automatic-lua-loader .
+docker run -d -t --name PS5-Lua-Loader --restart always automatic-lua-loader
+```
+
+<br>

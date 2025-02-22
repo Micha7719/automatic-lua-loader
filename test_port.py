@@ -1,28 +1,38 @@
+import sys
 import socket
 import time
-import sys
 
-def is_port_open(host: str, port: int) -> bool:
-    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-        s.settimeout(1)  # Timeout for the connection attempt
-        return s.connect_ex((host, port)) == 0
-
-def wait_for_port(host: str, port: int, interval: int = 5):
-    print(f"Checking if port {port} is open on {host}...")
+def check_port(ip, port, timeout, expected_status):
+    timeout = float(timeout)
     while True:
-        if is_port_open(host, port):
-            print(f"Port {port} is open! Exiting.")
+        try:
+            with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+                s.settimeout(timeout)  # Set timeout for connection attempt
+                result = s.connect_ex((ip, int(port)))
+                is_open = result == 0
+                
+                if (expected_status == "open" and is_open) or (expected_status == "close" and not is_open):
+                    print(f"Port {port} on {ip} is {expected_status}.")
+                    break
+                else:
+                    print(f"Waiting for port {port} on {ip} to be {expected_status}...")
+                    time.sleep(timeout)  # Use timeout as sleep interval
+        except Exception as e:
+            print(f"Error: {e}")
             break
-        print(f"Port {port} is still closed. Retrying in {interval} seconds...")
-        time.sleep(interval)
 
 if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        print("Usage: python script.py IPADDRESS")
+    if len(sys.argv) != 5:
+        print("Usage: python3 script.py <IP> <PORT> <TIMEOUT> <open/close>")
         sys.exit(1)
     
-    TARGET_HOST = sys.argv[1]
-    TARGET_PORT = 9026
-    CHECK_INTERVAL = 1  # Time in seconds between checks
+    ip = sys.argv[1]
+    port = sys.argv[2]
+    timeout = sys.argv[3]
+    expected_status = sys.argv[4]
     
-    wait_for_port(TARGET_HOST, TARGET_PORT, CHECK_INTERVAL)
+    if expected_status not in ["open", "close"]:
+        print("Error: The fourth argument must be 'open' or 'close'")
+        sys.exit(1)
+    
+    check_port(ip, port, timeout, expected_status)
