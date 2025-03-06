@@ -1,5 +1,5 @@
 function main()
-    send_ps_notification("starting UMTX exploit")
+    send_ps_notification("Starting UMTX exploit")
 end
 
 main()

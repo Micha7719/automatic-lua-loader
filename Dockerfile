@@ -1,20 +1,20 @@
 FROM alpine:latest
 
-ARG PS5_IP
+ARG ps5_ip
+ARG killgame
+ARG continue
 ENV PYTHONUNBUFFERED=1
 
 RUN apk update
-RUN apk add git wget
+RUN apk add bash git wget socat
 RUN apk add --update --no-cache python3 && ln -sf python3 /usr/bin/python
 
-WORKDIR /opt
-RUN git clone https://github.com/BenNoxXD/automatic-lua-loader/
-WORKDIR /opt/automatic-lua-loader
-RUN echo $PS5_IP > ip.txt
-RUN mkdir exploit
-RUN wget https://raw.githubusercontent.com/shahrilnet/remote_lua_loader/refs/heads/main/payloads/umtx.lua -P exploit
-RUN wget https://raw.githubusercontent.com/shahrilnet/remote_lua_loader/refs/heads/main/payloads/send_lua.py
-RUN wget https://raw.githubusercontent.com/shahrilnet/remote_lua_loader/refs/heads/main/payloads/elf_loader.lua -P exploit
-RUN chmod +x run.sh
+WORKDIR /tmp
+RUN wget https://raw.githubusercontent.com/BenNoxXD/automatic-lua-loader/refs/heads/main/install.sh 
+RUN chmod +x install.sh 
+RUN bash install.sh -ps5_ip=$ps5_ip -killgame=$killgame -continue=$continue -docker=on
 
-CMD ["sh", "/opt/automatic-lua-loader/run.sh"]
+RUN chmod +x /opt/automatic-lua-loader/run.sh
+RUN rm /tmp/install.sh
+
+CMD ["bash", "/opt/automatic-lua-loader/run.sh"]
