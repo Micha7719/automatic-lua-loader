@@ -27,7 +27,7 @@ And here is the command install command with an example config:
 sudo apt update
 wget https://raw.githubusercontent.com/BenNoxXD/automatic-lua-loader/refs/heads/main/install.sh
 sudo chmod +x install.sh
-./install.sh -ps5_ip=10.0.0.2 -killgame=on -continue=ping
+sudo ./install.sh -ps5_ip=10.0.0.2 -killgame=on -continue=ping
 ```
 
 <br>
