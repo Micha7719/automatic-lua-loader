@@ -110,6 +110,7 @@ EOF
 if [[ "$killgame" == "on" ]]; 
 then
 cat >> run.sh <<- "EOF"
+sleep 3 #give the elfdr some time to get up and running
 socat -t 99999999 - TCP:$(cat ip.txt):9021 < KillLuaGame/KillLuaGame.elf
 EOF
 fi
