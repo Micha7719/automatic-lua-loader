@@ -72,7 +72,7 @@ int main() {
       if (strncmp(appinfo.title_id, lua_games[i], 9) == 0) {
         target_pid = ki->ki_pid;
         char notify_msg[100];
-        snprintf(notify_msg, sizeof(notify_msg), "Killed process: PID %d Title ID: CUSA%s", target_pid, appinfo.title_id);
+        snprintf(notify_msg, sizeof(notify_msg), "Killed process: PID %d\nTitle ID: CUSA%s", target_pid, appinfo.title_id);
         send_notification(notify_msg);
         break;
       }
