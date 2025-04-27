@@ -1,9 +1,10 @@
 #!/bin/bash
 
+ps5_ip=""
+docker="off"
 killgame="off" # on/off
 continue="shutdown" # shutdown/ping
-docker="off" 
-ps5_ip=""
+inject="none" # none/etaHEN/kstuff
 
 print_info() {
     echo -e "\033[0;33m$1\033[0m"
@@ -24,6 +25,15 @@ for arg in "$@"; do
         -continue=ping)
             continue="ping"
             ;;
+        -inject=none)
+            inject="none"
+            ;;
+        -inject=etaHEN)
+            inject="etaHEN"
+            ;;
+        -inject=kstuff)
+            inject="kstuff"
+            ;;
         -docker=on)
             docker="on"
             ;;
@@ -34,7 +44,7 @@ for arg in "$@"; do
             ps5_ip="${arg#*=}"
             ;;
         -h|--help)
-            echo "Usage: ./install.sh -ps5_ip=YOURPS5IP [-killgame=on|off] [-continue=shutdown|ping] [-docker=on|off]"
+            echo "Usage: ./install.sh -ps5_ip=YOURPS5IP [-killgame=on|off] [-continue=shutdown|ping] [-inject=none|etaHEN|kstuff] [-docker=on|off]"
             exit 0
             ;;
         *)
@@ -94,11 +104,11 @@ EOF
 fi
 
 
-# modify run.sh
+# modify run.sh - exploit
 cat >> /opt/automatic-lua-loader/run.sh <<- "EOF"
 python3 test_port.py $(cat ip.txt) 9021 15 close
 python3 test_port.py $(cat ip.txt) 9026 1 open
-sleep .5
+sleep .25
 python3 send_lua.py $(cat ip.txt) 9026 status/running.lua
 python3 send_lua.py $(cat ip.txt) 9026 exploit/umtx.lua
 python3 send_lua.py $(cat ip.txt) 9026 status/finished.lua
@@ -110,14 +120,32 @@ EOF
 if [[ "$killgame" == "on" ]]; 
 then
 cat >> run.sh <<- "EOF"
-sleep 3 #give the elfdr some time to get up and running
+sleep 3 #give the elfldr some time to get up and running
 socat -t 99999999 - TCP:$(cat ip.txt):9021 < KillLuaGame/KillLuaGame.elf
+sleep .5 #give the elfldr some time to get ready for the next payload
+EOF
+fi
+
+# inject etaHEN
+if [[ "$inject" == "etaHEN" ]]; 
+then
+cat >> run.sh <<- "EOF"
+socat FILE:Payloads/etaHEN-2.1-test.elf TCP:$(cat ip.txt):9021
+EOF
+fi
+
+# inject kstuff
+if [[ "$inject" == "kstuff" ]]; 
+then
+wget https://github.com/EchoStretch/kstuff/releases/latest/download/kstuff.elf -P Payloads
+cat >> run.sh <<- "EOF"
+socat FILE:Payloads/kstuff.elf TCP:$(cat ip.txt):9021
 EOF
 fi
 
 echo "sleep 5" >> /opt/automatic-lua-loader/run.sh
 
-
+# end while loop or shutdown
 if [[ "$continue" == "ping" ]]; 
 then
     echo "done" >> /opt/automatic-lua-loader/run.sh
@@ -145,4 +173,4 @@ EOF
 systemctl enable lualoader
 systemctl start lualoader
 print_info "Installation complete!"
-fi 
+fi
