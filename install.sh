@@ -122,7 +122,7 @@ then
 cat >> run.sh <<- "EOF"
 sleep 3 #give the elfldr some time to get up and running
 socat -t 99999999 - TCP:$(cat ip.txt):9021 < KillLuaGame/KillLuaGame.elf
-sleep .5 #give the elfldr some time to get ready for the next payload
+sleep 1 #give the elfldr some time to get ready for the next payload
 EOF
 fi
 
