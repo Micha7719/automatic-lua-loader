@@ -13,9 +13,8 @@ How it works:
     - Aikagi 2 (CUSA19556)
     - IxSHE Tell (CUSA17112)
     - Nora Princess and Stray Cat Heart HD (CUSA13303)
-4. (Optional) send etaHEN or kstuff.
-    - The current etaHEN version is from discord and is the testrelease v2.1.
-    - It downloads the latest kstuff.elf from [Echo Stretch's GitHub releases.](https://github.com/EchoStretch/kstuff/releases/latest/)
+4. (Optional) sends etaHEN or kstuff.
+    - It will download the latest version of the selected payload (etaHEN.bin from [LM's GitHub releases](https://github.com/etaHEN/etaHEN/releases/latest/) or kstuff.elf from [Echo Stretch's GitHub releases](https://github.com/EchoStretch/kstuff/releases/latest/)) and send it automatically.
 5. It waits until the ELF loader (port 9021) is closed to start the process all over again OR your server will shut down. 
 
 ## Configuration options

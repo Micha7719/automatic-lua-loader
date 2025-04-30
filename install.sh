@@ -122,21 +122,24 @@ then
 cat >> run.sh <<- "EOF"
 sleep 3 #give the elfldr some time to get up and running
 socat -t 99999999 - TCP:$(cat ip.txt):9021 < KillLuaGame/KillLuaGame.elf
-sleep .5 #give the elfldr some time to get ready for the next payload
+sleep 1 #give the elfldr some time to get ready for the next payload
 EOF
 fi
 
 # inject etaHEN
 if [[ "$inject" == "etaHEN" ]]; 
 then
+mkdir Payloads
+wget https://github.com/etaHEN/etaHEN/releases/latest/download/etaHEN.bin -P Payloads
 cat >> run.sh <<- "EOF"
-socat FILE:Payloads/etaHEN-2.1-test.elf TCP:$(cat ip.txt):9021
+socat FILE:Payloads/etaHEN.bin TCP:$(cat ip.txt):9021
 EOF
 fi
 
 # inject kstuff
 if [[ "$inject" == "kstuff" ]]; 
 then
+mkdir Payloads
 wget https://github.com/EchoStretch/kstuff/releases/latest/download/kstuff.elf -P Payloads
 cat >> run.sh <<- "EOF"
 socat FILE:Payloads/kstuff.elf TCP:$(cat ip.txt):9021
