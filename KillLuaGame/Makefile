@@ -8,17 +8,21 @@ else
 endif
 
 ELF := KillLuaGame.elf
-SRC := main.c
 
 CFLAGS := -Wall -g -O0
+SRCS = main.c src/notification.c
+OBJS = $(SRCS:.c=.o)
 
 all: $(ELF)
 
-$(ELF): $(SRC)
+$(ELF): $(OBJS)
 	$(CC) $(CFLAGS) -o $@ $^
 
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
 clean:
-	rm -f $(ELF)
+	rm -f $(OBJS) $(ELF)
 
 test: $(ELF)
 	$(PS5_DEPLOY) -h $(PS5_HOST) -p $(PS5_PORT) $^

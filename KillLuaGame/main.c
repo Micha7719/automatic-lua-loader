@@ -6,14 +6,8 @@
 #include <string.h>
 #include <signal.h>
 
-#define _WANT_KERNEL_STRUCTURES 1
+#include "src/notification.h"
 
-typedef struct {
-  char unused[45];
-  char message[3075];
-} notify_request_t;
-
-int sceKernelSendNotificationRequest(int, notify_request_t*, size_t, int);
 
 typedef struct app_info {
   uint32_t app_id;
@@ -28,11 +22,6 @@ int sceKernelGetAppInfo(pid_t pid, app_info_t *info);
 const char *lua_games[] = {"16074", "17068", "27389", "27390", "16229", "19556", "17112", "13303"};
 #define NUM_TITLES (sizeof(lua_games) / sizeof(lua_games[0]))
 
-void send_notification(const char *msg) {
-  notify_request_t req = {0};
-  snprintf(req.message, sizeof(req.message), "%s", msg);
-  sceKernelSendNotificationRequest(0, &req, sizeof req, 0);
-}
 
 int main() {
   int mib[4] = {CTL_KERN, KERN_PROC, KERN_PROC_PROC, 0};
@@ -71,9 +60,6 @@ int main() {
     for (size_t i = 0; i < NUM_TITLES; i++) {
       if (strncmp(appinfo.title_id, lua_games[i], 9) == 0) {
         target_pid = ki->ki_pid;
-        char notify_msg[100];
-        snprintf(notify_msg, sizeof(notify_msg), "Killed process: PID %d\nTitle ID: CUSA%s", target_pid, appinfo.title_id);
-        send_notification(notify_msg);
         break;
       }
     }
@@ -85,7 +71,7 @@ int main() {
   free(buf);
 
   if (target_pid == -1) {
-    fprintf(stderr, "No matching process found.\n");
+    printf("No matching process found.\n");
     send_notification("No matching process found.");
     return 1;
   }
@@ -106,6 +92,8 @@ int main() {
     }
   } else {
     printf("Successfully sent SIGTERM to PID %d, Title ID CUSA%s\n", target_pid, appinfo.title_id);
+    send_notification("Killed process: PID %d\nTitle ID: CUSA%s", target_pid, appinfo.title_id);
   }
+
   return 0;
 }
