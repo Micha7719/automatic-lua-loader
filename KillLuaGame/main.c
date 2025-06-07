@@ -19,7 +19,7 @@ typedef struct app_info {
 
 int sceKernelGetAppInfo(pid_t pid, app_info_t *info);
 
-const char *lua_games[] = {"16074", "17068", "27389", "27390", "16229", "19556", "17112", "13303"};
+const char *lua_games[] = {"16074", "17068", "27389", "27390", "16229", "19556", "17112", "13303", "25179", "25180", "29745"};
 #define NUM_TITLES (sizeof(lua_games) / sizeof(lua_games[0]))
 
 
