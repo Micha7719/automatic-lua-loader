@@ -50,7 +50,7 @@ And here is an example install command:
 
 ```sh
 sudo apt update
-wget https://raw.githubusercontent.com/BenNoxXD/automatic-lua-loader/refs/heads/main/install.sh
+wget https://raw.githubusercontent.com/Micha7719/automatic-lua-loader/refs/heads/main/install.sh
 sudo chmod +x install.sh
 sudo ./install.sh -ps5_ip=10.0.0.2 -killgame=on -continue=ping -inject=etaHEN
 ```
@@ -65,7 +65,7 @@ Now you can download this Dockerfile:
 <br>
 
 ```sh
-wget https://raw.githubusercontent.com/BenNoxXD/automatic-lua-loader/refs/heads/main/Dockerfile
+wget https://raw.githubusercontent.com/Micha7719/automatic-lua-loader/refs/heads/main/Dockerfile
 ```
 
 <br>
