@@ -79,7 +79,7 @@ fi
 echo $ps5_ip > /tmp/ip.txt
 cd /opt
 # install new version
-git clone https://github.com/BenNoxXD/automatic-lua-loader/
+git clone https://github.com/Micha7719/automatic-lua-loader
 cd automatic-lua-loader
 mv /tmp/ip.txt /opt/automatic-lua-loader
 mkdir exploit
@@ -130,9 +130,9 @@ fi
 if [[ "$inject" == "etaHEN" ]]; 
 then
 mkdir Payloads
-wget https://github.com/etaHEN/etaHEN/releases/latest/download/etaHEN.bin -P Payloads
+wget https://github.com/etaHEN/etaHEN/releases/download/2.2/etaHEN-2.2B.bin -P Payloads
 cat >> run.sh <<- "EOF"
-socat FILE:Payloads/etaHEN.bin TCP:$(cat ip.txt):9021
+socat FILE:Payloads/etaHEN-2.2B.bin TCP:$(cat ip.txt):9021
 EOF
 fi
 
