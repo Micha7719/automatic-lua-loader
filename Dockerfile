@@ -11,7 +11,7 @@ RUN apk add bash git wget socat
 RUN apk add --update --no-cache python3 && ln -sf python3 /usr/bin/python
 
 WORKDIR /opt
-RUN wget https://raw.githubusercontent.com/BenNoxXD/automatic-lua-loader/refs/heads/main/install.sh 
+RUN wget https://github.com/Micha7719/automatic-lua-loader/blob/main/install.sh
 RUN chmod +x install.sh 
 RUN bash install.sh -ps5_ip=$ps5_ip -docker=on -killgame=$killgame -continue=$continue -inject=$inject
 
